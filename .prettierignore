@@ -1,5 +1,11 @@
 *.js
 *.d.ts
+.gitignore
+.npmignore
+.prettierignore
+.prettierrc
+package-lock.json
+README.md
 dist/
 node_modules/
 
