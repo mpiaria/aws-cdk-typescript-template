@@ -26,19 +26,24 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
+        working-directory: infrastructure
 
       - name: Check formatting
         run: |
           npm run format-check
+        working-directory: infrastructure
 
       - name: Lint
         run: |
           npm run lint
+        working-directory: infrastructure
 
       - name: Compile Typescript
         run: |
           npm run build
+        working-directory: infrastructure
 
       - name: Unit tests
         run: |
           npm test
+        working-directory: infrastructure
