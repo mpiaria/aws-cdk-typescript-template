@@ -1,4 +1,4 @@
-import { test } from "@jest/globals";
+import { test } from '@jest/globals';
 // import * as cdk from 'aws-cdk-lib';
 // import { Template } from 'aws-cdk-lib/assertions';
 // import * as AwsCdkTypescriptTemplate from '../lib/aws-cdk-typescript-template-stack';
