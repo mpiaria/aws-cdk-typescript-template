@@ -1,0 +1,47 @@
+description: 'Build and verify the CDK infrastructure'
+name: 'Build and verify infrastructure'
+
+inputs:
+  shell:
+    default: 'bash'
+    description: 'Defaults to bash'
+    required: false
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: |
+        npm ci
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure
+
+    - name: Check formatting
+      run: |
+        npm run format-check
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure
+
+    - name: Lint
+      run: |
+        npm run lint
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure
+
+    - name: Compile Typescript
+      run: |
+        npm run build
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure
+
+    - name: Unit tests
+      run: |
+        npm test
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure

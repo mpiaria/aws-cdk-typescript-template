@@ -1,0 +1,24 @@
+description: 'Run the Checkov security scan'
+name: 'Checkov security scan'
+
+inputs:
+  shell:
+    default: 'bash'
+    description: 'Defaults to bash'
+    required: false
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: 'Setup Python'
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: 'Run Checkov scan'
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: 'infrastructure'
+        output_file_path: 'console'
+        output_format: 'cli'
