@@ -12,7 +12,6 @@ permissions:
 
 jobs:
   build-verify:
-    environment: production
     runs-on: ubuntu-latest
 
     steps:
