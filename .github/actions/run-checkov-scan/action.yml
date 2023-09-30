@@ -1,24 +1,63 @@
-description: 'Run the Checkov security scan'
-name: 'Checkov security scan'
+description: Run the Checkov security scan
+name: Checkov security scan
 
 inputs:
+  aws-region:
+    description: AWS region to which you will deploy.
+    required: false
+
+  python-version:
+    default: '3.x'
+    description: Version of Python used by the Checkov scan.  Defaults to '3.x'.
+    required: false
+
+  role-to-assume:
+    description: IAM role to assume when running CDK commands.
+    required: true
+
   shell:
-    default: 'bash'
-    description: 'Defaults to bash'
+    default: bash
+    description: Defaults to bash.
     required: false
 
 runs:
-  using: 'composite'
+  using: composite
 
   steps:
-    - name: 'Setup Python'
+    - name: Setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: ${{ inputs.python-version }}
 
-    - name: 'Run Checkov scan'
+    - name: Configure AWS credentials
+      id: configure-aws-credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: ${{ inputs.aws-region }}
+        role-to-assume: ${{ inputs.role-to-assume }}
+
+    - name: Install AWS CDK
+      run: |
+        npm install --global aws-cdk
+      shell: ${{ inputs.shell }}
+
+    - name: Install dependencies
+      run: |
+        npm ci
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure
+
+    - name: Synthesize all CDK stacks
+      env:
+        AWS_ACCOUNT: ${{ steps.configure-aws-credentials.outputs.aws-account-id }}
+      run: |
+        cdk synthesize
+      shell: ${{ inputs.shell }}
+      working-directory: infrastructure
+
+    - name: Run Checkov scan
       uses: bridgecrewio/checkov-action@master
       with:
-        directory: 'infrastructure'
-        output_file_path: 'console'
-        output_format: 'cli'
+        directory: infrastructure
+        output_file_path: console
+        output_format: cli
