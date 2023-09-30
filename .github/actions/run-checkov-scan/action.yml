@@ -16,6 +16,32 @@ runs:
       with:
         python-version: '3.11'
 
+    - name: 'Configure AWS credentials'
+      id: 'configure-aws-credentials'
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: 'us-east-1'
+        role-to-assume: ''
+
+    - name: 'Install AWS CDK'
+      run: |
+        npm install --global aws-cdk
+      shell: ${{ inputs.shell }}
+
+    - name: 'Install dependencies'
+      run: |
+        npm ci
+      shell: ${{ inputs.shell }}
+      working-directory: 'infrastructure'
+
+    - name: 'Synthesize all CDK stacks'
+      env:
+        AWS_ACCOUNT: ${{ steps.configure-aws-credentials.outputs.aws-account-id }}
+      run: |
+        cdk synthesize
+      shell: ${{ inputs.shell }}
+      working-directory: 'infrastructure'
+
     - name: 'Run Checkov scan'
       uses: bridgecrewio/checkov-action@master
       with:
