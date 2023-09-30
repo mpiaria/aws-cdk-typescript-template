@@ -3,8 +3,7 @@ name: Checkov security scan
 
 inputs:
   aws-region:
-    default: 'us-east-1'
-    description: AWS region to which you will deploy.  Defaults to 'us-east-1'.
+    description: AWS region to which you will deploy.
     required: false
 
   python-version:
@@ -13,12 +12,12 @@ inputs:
     required: false
 
   role-to-assume:
-    description: Version of Python used by the Checkov scan.  Defaults to '3.x'.
+    description: IAM role to assume when running CDK commands.
     required: true
 
   shell:
     default: bash
-    description: Defaults to bash
+    description: Defaults to bash.
     required: false
 
 runs:

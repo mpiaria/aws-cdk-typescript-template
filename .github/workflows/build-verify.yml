@@ -25,4 +25,5 @@ jobs:
       - name: Run Checkov scan
         uses: ./.github/actions/run-checkov-scan
         with:
+          aws-region: ${{ secrets.AWS_REGION }}
           role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
