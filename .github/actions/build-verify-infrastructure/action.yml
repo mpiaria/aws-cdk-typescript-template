@@ -3,7 +3,7 @@ name: Build and verify infrastructure
 
 inputs:
   node-version:
-    default: 'lts'
+    default: '--lts'
     description: Major version of Node.js.  Defaults to 'lts'.
     required: false
 
