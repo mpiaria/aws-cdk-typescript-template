@@ -1,8 +1,10 @@
 # Welcome to your CDK TypeScript project
 
+[![build-verify](https://github.com/mpiaria/aws-cdk-typescript-template/actions/workflows/build-verify.yml/badge.svg)](https://github.com/mpiaria/aws-cdk-typescript-template/actions/workflows/build-verify.yml)
+
 This is a blank project for CDK development with TypeScript.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The `infrastructure/cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Useful commands
 
