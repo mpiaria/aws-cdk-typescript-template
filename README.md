@@ -8,11 +8,16 @@ The `infrastructure/cdk.json` file tells the CDK Toolkit how to execute your app
 
 ## Usage
 
+If you don't want to perform any setup steps in AWS, then you will need to comment out or remove the usage of the `run-checkov-scan` action. If you wish to use the `run-checkov-scan action`, then take a look at the requirements below.
+
 1. You will need to add the GitHub OIDC provider to IAM. Check out the [Adding the Identity Provider to AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#adding-the-identity-provider-to-aws) documentation for an explanation of how to do that.
 
 2. The [build-verify workflow](.github/workflows/build-verify.yml) requires the following GitHub Secrets to be accessible by GitHub Actions:
+
    - AWS_REGION - the region to which you will deploy your CDK stack(s)
    - ROLE_TO_ASSUME - the ARN of the IAM role to be assumed when authenticating using the GitHub OIDC provider
+
+3. If this is the first time you have deployed using the CDK to an AWS account, you will need to bootstrap the CDK. Take a look at the [AWS Cloud Development Kit Developer Guide](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) for documentation on how to do that.
 
 ## Useful commands
 

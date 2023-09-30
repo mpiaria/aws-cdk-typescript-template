@@ -6,6 +6,11 @@ inputs:
     description: AWS region to which you will deploy.
     required: false
 
+  node-version:
+    default: '18'
+    description: Major version of Node.js.  Defaults to '18'.
+    required: false
+
   python-version:
     default: '3.x'
     description: Version of Python used by the Checkov scan.  Defaults to '3.x'.
@@ -24,6 +29,11 @@ runs:
   using: composite
 
   steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
