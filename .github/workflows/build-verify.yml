@@ -3,8 +3,8 @@ name: Build and verify
 on:
   push:
     branches:
-      - '**'
-      - '!main'
+      - "**"
+      - "!main"
 
 permissions:
   contents: read
@@ -24,3 +24,5 @@ jobs:
 
       - name: Run Checkov scan
         uses: ./.github/actions/run-checkov-scan
+        with:
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}

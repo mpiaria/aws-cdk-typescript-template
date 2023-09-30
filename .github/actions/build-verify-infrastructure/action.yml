@@ -1,20 +1,25 @@
-description: 'Build and verify the CDK infrastructure'
-name: 'Build and verify infrastructure'
+description: Build and verify the CDK infrastructure
+name: Build and verify infrastructure
 
 inputs:
+  node-version:
+    default: 'lts'
+    description: Major version of Node.js.  Defaults to 'lts'.
+    required: false
+
   shell:
-    default: 'bash'
-    description: 'Defaults to bash'
+    default: bash
+    description: Defaults to bash.
     required: false
 
 runs:
-  using: 'composite'
+  using: composite
 
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: ${{ inputs.node-version }}
 
     - name: Install dependencies
       run: |
