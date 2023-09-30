@@ -39,7 +39,7 @@ runs:
       shell: ${{ inputs.shell }}
       working-directory: infrastructure
 
-    - name: Compile Typescript
+    - name: Compile TypeScript
       run: |
         npm run build
       shell: ${{ inputs.shell }}
